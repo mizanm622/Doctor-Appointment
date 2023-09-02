@@ -24,7 +24,6 @@
                         @endforeach
                        </select>
                 </div>
-
                 <div class="form-group mb-3">
                     <input type="submit" value="Submit" class="btn btn-success">
                 </div>
@@ -36,16 +35,13 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script type="text/javascript">
-    // insert review data
 
+    // update doctor data
     $(document).ready(function() {
-
      $('#update-form').submit(function(e) {
-
         e.preventDefault();
         var url = $(this).attr('action');
         var request = $(this).serialize();
-
         $.ajax({
             url: url,
             type: 'post',
@@ -54,11 +50,11 @@
             success:function(data) {
                 toastr.success(data);
                  $('#update-form')[0].reset();
-                 $(document).find('#updateModal .btn-close').trigger('click');
+                 $(document).find('#updateModal .close').trigger('click');
                  $('.table').load(location.href+' .table');
             }
         });
         });
     });
 
-      </script>
+</script>

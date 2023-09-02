@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
+    //view doctor and department
     public function index(){
 
         $department = Department::all();
@@ -16,6 +17,7 @@ class DoctorController extends Controller
         return view('doctor.index',compact('department','doctors'));
     }
 
+    // store new doctor
     public function store(Request $request){
 
         $request->validate([
@@ -31,8 +33,9 @@ class DoctorController extends Controller
             'department_id'=>$request->department_id,
         ]);
 
-        return response()->json('Doctor successfully insert');
+        return response()->json('Doctor successfully inserted');
     }
+
     // edit doctor function
     public function edit($id){
         $doctor = Doctor::find($id);
@@ -57,6 +60,7 @@ class DoctorController extends Controller
 
         return response()->json('Doctor successfully updated');
     }
+
     // delete doctor function
     public function delete($id){
         Doctor::where('id', $id)->delete();
@@ -64,22 +68,22 @@ class DoctorController extends Controller
     }
 
     // get doctor
-
     public function getDoctor($id){
-
         $data=Doctor::where('department_id',$id)->get();
         return response()->json($data);
     }
 
     public function getDoctorFee(Request $request){
 
-        $data = Doctor::where('id',$request->id)->get();
-        $dateCount = Appointment::where('id',$request->id)->where('appointment_date', $request->app_date)->count();
-
-        return response()->json($data);
+        $dateCount =Appointment::where('appointment_date',$request->appointment_date)->where('doctor_id', $request->id)->get()->count();
+        // check appointment date is available or not
+        if( $dateCount >= 2){
+                 return response()->json($dateCount);
+            }else{
+                $data = Doctor::where('id',$request->id)->get();
+                return response()->json($data);
+            }
     }
-
-
 
 
 }

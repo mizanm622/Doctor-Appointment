@@ -23,7 +23,7 @@
                             <th scope="col">Doc. Fee</th>
                             <th scope="col">P. Name</th>
                             <th scope="col">P. Phone</th>
-                            <th scope="col">P. Fee</th>
+                            <th scope="col">Pain Amount</th>
                             <th scope="col">Action</th>
                           </tr>
                         </thead>
@@ -62,6 +62,7 @@
     });
 
  });
+
 
 
 </script>

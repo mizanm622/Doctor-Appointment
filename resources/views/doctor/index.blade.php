@@ -11,8 +11,7 @@
                     <div class="card-header">
                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#insertModal">
                            + Add New
-                          </button>
-
+                        </button>
                     </div>
                     <div class="card-body ">
                         <table class="table table-striped">
@@ -27,21 +26,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($doctors as $row)
-                            <tr>
-                                <th scope="row">{{$loop->iteration}}</th>
-                                <td>{{$row->name}}</td>
-                                <td>{{$row->phone}}</td>
-                                <td>{{$row->department->name}}</td>
-                                <td>{{$row->fee}}</td>
-                                <td><a href="javascript:void(0)" class="btn btn-info" data-toggle="modal" data-target="#updateModal" data-id="{{$row->id}}" id="edit">Edit</a> <a href="javascript:void(0)"  class="btn btn-danger" data-id="{{$row->id}}" id="delete">Delete</a></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                @foreach($doctors as $row)
+                                <tr>
+                                    <th scope="row">{{$loop->iteration}}</th>
+                                    <td>{{$row->name}}</td>
+                                    <td>{{$row->phone}}</td>
+                                    <td>{{$row->department->name}}</td>
+                                    <td>{{$row->fee}}</td>
+                                    <td><a href="javascript:void(0)" class="btn btn-info" data-toggle="modal" data-target="#updateModal" data-id="{{$row->id}}" id="edit">Edit</a> <a href="javascript:void(0)"  class="btn btn-danger" data-id="{{$row->id}}" id="delete">Delete</a></td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
-                  </div>
-
+                </div>
             </div>
         </div>
     </div>
@@ -89,7 +87,7 @@
                         </div>
                     </form>
                 </div>
-              </div>
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -134,8 +132,8 @@ $(document).on('click','#edit',function(){
       });
       })
 
-        // delete data
-  $(document).on('click','#delete', function(){
+// delete data
+$(document).on('click','#delete', function(){
       let id=$(this).data('id');
       $.get('/doctor/delete/'+id, function(data){
           toastr.success(data);
@@ -147,8 +145,8 @@ $(document).on('click','#edit',function(){
 </script>
 
 <script type="text/javascript">
-// insert review data
 
+// insert doctor data
 $(document).ready(function() {
 
  $('#add-form').submit(function(e) {
@@ -165,14 +163,12 @@ $(document).ready(function() {
         success:function(data) {
             toastr.success(data);
              $('#add-form')[0].reset();
-             $(document).find('#insertModal .btn-close').trigger('click');
+             $(document).find('#insertModal .close').trigger('click');
              $('.table').load(location.href+' .table');
         }
     });
     });
 });
-
-
 
   </script>
 

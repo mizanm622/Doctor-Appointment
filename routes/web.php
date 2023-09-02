@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 // home controller
 Route::group(['namespace' => 'App\Http\Controllers',],function(){
-    Route::get('/home', 'HomeController@index')->name('home.index');
+    Route::get('/', 'HomeController@index')->name('home.index');
     Route::get('/appointment/search', 'HomeController@appointmentSearch')->name('appointment.search');
 
 });
@@ -31,8 +31,11 @@ Route::group(['namespace' => 'App\Http\Controllers',],function(){
 Route::group(['namespace' => 'App\Http\Controllers',],function(){
 
     Route::get('/appointment','AppointmentController@index')->name('appointment.index');
+    Route::post('/appointment/store','AppointmentController@store')->name('appointment.store');
+    Route::get('/appointment/destroy/{id}','AppointmentController@destroy')->name('appointment.destroy');
 
     Route::post('/appointment/session','AppointmentController@sessionForm')->name('appointment.session');
+    Route::get('/remove/session/{id}','AppointmentController@sessionRemove')->name('remove.session');
 
 });
 
