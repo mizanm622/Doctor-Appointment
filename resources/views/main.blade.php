@@ -10,8 +10,10 @@
 
                 </div>
                 <div class="card-body">
-
-                        <input type="search" class="form-control" name="search" id="search" placeholder=" Search doctor/appointment">
+                    <div class="card-header">
+                        <h3 class="text-center"> Appointment List</h3>
+                    </div>
+                    <input type="search" class="form-control" name="search" id="search" placeholder=" Search doctor/appointment">
 
                     <div class="table-data">
                         <table class="table table-striped">

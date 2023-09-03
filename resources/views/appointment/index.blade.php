@@ -153,7 +153,6 @@
 
 <script type="text/javascript">
  // get child category to select subcategory using ajax request
-
  $(document).on('change', '#department_id' ,function(){
 
     let id=$(this).val();
