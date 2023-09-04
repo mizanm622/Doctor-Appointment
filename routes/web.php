@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('main');
 // })->name('home');
 
+Route::get('/edit', function () {
+        return view('appointment.edit');
+    })->name('edit');
+
 // home controller
 Route::group(['namespace' => 'App\Http\Controllers',],function(){
     Route::get('/', 'HomeController@index')->name('home.index');

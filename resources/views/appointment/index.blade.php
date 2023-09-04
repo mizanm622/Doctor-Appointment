@@ -1,160 +1,160 @@
 @extends('home')
 
 @section('main-content')
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-5">
-            <div class="appointment-form bg-light my-3">
-                <div class="card">
-                    <div class="card-body ">
-                        <form action="{{route('appointment.session')}}" method="post" id="add-session">
-                            @csrf
-                            @php
-                            $rand= rand();
-                            @endphp
+            <div class="left bg-light py-5 px-3">
+                <div class="appointment-form">
+                    <form action="{{route('appointment.session')}}" method="post" id="add-session">
+                        @csrf
+                        @php
+                        $rand= rand();
+                        @endphp
 
-                            <div class="form-group mb-3">
-                                <label for="formGroupExampleInput">Appoinrment Date</label>
-                                <input type="date" class="form-control" value="{{date('Y-m-d')}}" name="appointment_date" id="appointment_date" required>
-                                <input type="hidden" name="appointment_no" value="{{$rand}}">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="formGroupExampleInput2">Select Department</label>
-                               <select class="form-control" name="department_id" id="department_id">
-                                <option value="">--Select Option--</option>
-                                @foreach($department as $row)
-                                <option value="{{$row->id}}">{{$row->name}}</option>
-                                @endforeach
-                               </select>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="formGroupExampleInput2">Select Doctor</label>
-                               <select class="form-control" name="id" id="id">
-                                <option value="">--Select Option--</option>
-
-                               </select>
-
-                               <span class="status-show text-success"></span>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="formGroupExampleInput2">Fee</label>
-                               <select class="form-control" name="fee" id="fee">
-
-                               </select>
-
-                            </div>
-                            <div class="form-group mb-3">
-                                <input type="submit" value="Add" class="btn btn-success">
-                            </div>
-                        </form>
-                    </div>
-                  </div>
-
-            </div>
-        </div>
-
-        <div class="col-7">
-            <div class="form-container bg-secondary">
-            <div class="appointment-form">
-                <table class="table table-border">
-                        <thead class="text-light">
-                        <tr class="p-0">
-                            <th class="w-0" scope="col">SN</th>
-                            <th scope="col">App.Date</th>
-                            <th scope="col">Doctor</th>
-                            <th scope="col">Fee</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-light">
-                            @php
-                            $total = 0;
-                            @endphp
-                            @if(session()->has('cart'))
-                            @foreach (Session::get('cart') as $id => $row)
-
-                            @php
-                                $total+=$row['fee'];
-                            @endphp
-                            <tr class="p-0">
-                            <th scope="row">{{$loop->iteration}}</th>
-                            <td>{{$row['appointment_date']}}</td>
-                            <td>{{$row['name']}}</td>
-                            <td>{{$row['fee']}}</td>
-                            <td> <a href="javascript:void(0)" data-id="{{$id}}" id="delete" class="btn btn-danger btn-sm">Delete</a></td>
-                            </tr>
-
-                             @endforeach
-                             @endif
-                             <tr>
-                                @if($total != 0 )
-                                <td colspan="5"> Total ={{$total}} /-</td>
-                                @else
-                                <td colspan="5" class="text-center text-warning"> Please add an appointment!</td>
-                                @endif
-                             </tr>
-                    </tbody>
-                </table>
-            </div>
-                <div class="patient-info-form px-5 my-4 ">
-                    <div class="card">
-                        <div class="card-body bg-light">
-                            <form action="{{route('appointment.store')}}" method="post" id="appointment-form">
-                                @csrf
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label for="patient_name" class="form-label text-md-end">{{ __('Patient Name') }}</label>
-                                        <input id="patient_name" type="text" class="form-control @error('patient_name') is-invalid @enderror" name="patient_name" required placeholder="Patient-Name">
-                                        @error('patient_name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group mt-2 mb-3 col-6">
-                                        <label for="patient_phone" class="form-label text-md-end">{{ __('') }}</label>
-                                        <input id="patient_phone" type="text" class="form-control" name="patient_phone" required placeholder="Patient-Phone">
-                                    </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label for="total_fee" class="form-label text-md-end">{{ __('Total Fee') }}</label>
-                                        <input id="total_fee" type="text" value="{{$total}}" class="form-control  @error('total_fee') is-invalid @enderror" name="total_fee" required placeholder="Total-Fee">
-
-                                        @error('total_fee')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group mt-2 mb-3 col-6">
-                                        <label for="paid_amount" class="form-label text-md-end">{{ __('') }}</label>
-                                        <input id="paid_amount" type="text" class="form-control" name="paid_amount" required placeholder="Paid-Amount">
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <input type="submit" value="Submit" class="btn btn-primary btn-block">
-                                </div>
-                            </form>
+                        <div class="form-group mb-3">
+                            <label for="formGroupExampleInput">Appoinrment Date</label>
+                            <input type="date" class="form-control" value="{{date('Y-m-d')}}" name="appointment_date" id="appointment_date" required>
+                            <input type="hidden" name="appointment_no" value="{{$rand}}">
                         </div>
-                    </div>
+                        <div class="form-group mb-3">
+                            <label for="formGroupExampleInput2">Select Department</label>
+                           <select class="form-control" name="department_id" id="department_id">
+                            <option value="">--Select Option--</option>
+                            @foreach($department as $row)
+                            <option value="{{$row->id}}">{{$row->name}}</option>
+                            @endforeach
+                           </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="formGroupExampleInput2">Select Doctor</label>
+                           <select class="form-control" name="id" id="id">
+                            <option value="">--Select Option--</option>
+                           </select>
+                           <span class="available text-success"></span>
+                           <span class="not-available text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="formGroupExampleInput2">Fee</label>
+                           <select  readonly class="form-control" name="fee" id="fee" required>
+                           </select>
+
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="submit" value="Add" class="btn btn-success">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+        <div class="col-7">
+            <div class="card bg-dark">
+                <div class="right ">
+                    <div class="header mb-2">
+                        <div class="header-table">
+                            <table class="table table-border">
+                                <thead class="text-light">
+                                <tr class="p-0">
+                                    <th class="w-0" scope="col">SN</th>
+                                    <th scope="col">App.Date</th>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Fee</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-light">
+                                    @php
+                                    $total = 0;
+                                    @endphp
+                                    @if(session()->has('cart'))
+                                    @foreach (Session::get('cart') as $id => $row)
+
+                                    @php
+                                        $total+=$row['fee'];
+                                    @endphp
+                                    <tr class="p-0">
+                                    <th scope="row">{{$loop->iteration}}</th>
+                                    <td>{{$row['appointment_date']}}</td>
+                                    <td>{{$row['name']}}</td>
+                                    <td>{{$row['fee']}}</td>
+                                    <td> <a href="javascript:void(0)" data-id="{{$id}}" id="delete" class="btn btn-danger btn-sm">Delete</a></td>
+                                    </tr>
+
+                                     @endforeach
+                                     @endif
+                                     <tr>
+                                        @if($total != 0 )
+                                        <td colspan="5"> Total ={{$total}} /-</td>
+                                        @else
+                                        <td colspan="5" class="text-center text-warning"> Please add an appointment!</td>
+                                        @endif
+                                     </tr>
+                            </tbody>
+                        </table>
+
+                        </div>
+                    </div>
+                    <div class="footer mt-2 pb-5">
+                        <div class="row justify-content-center">
+                            <div class="col-8">
+                                <div class="foote-form bg-light py-1 px-2">
+                                    <form action="{{route('appointment.store')}}" method="post" id="appointment-form">
+                                        @csrf
+                                        <div class="row ">
+                                            <div class="form-group col-6">
+                                                <label for="patient_name" class="form-label text-md-end">{{ __('Patient Name') }}</label>
+                                                <input id="patient_name" type="text" class="form-control @error('patient_name') is-invalid @enderror" name="patient_name" required placeholder="Patient-Name">
+                                                @error('patient_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group mt-2 mb-3 col-6">
+                                                <label for="patient_phone" class="form-label text-md-end">{{ __('') }}</label>
+                                                <input id="patient_phone" type="text" class="form-control" name="patient_phone" required placeholder="Patient-Phone">
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label for="total_fee" class="form-label text-md-end">{{ __('Total Fee') }}</label>
+                                                <input id="total_fee" type="text" value="{{$total}}" class="form-control  @error('total_fee') is-invalid @enderror" name="total_fee" required placeholder="Total-Fee">
+
+                                                @error('total_fee')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group mt-2 mb-3 col-6">
+                                                <label for="paid_amount" class="form-label text-md-end">{{ __('') }}</label>
+                                                <input id="paid_amount" type="text" class="form-control" name="paid_amount" required placeholder="Paid-Amount">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <input type="submit" value="Submit" class="btn btn-primary btn-block">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+         </div>
     </div>
 </div>
+
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script type="text/javascript">
  // get child category to select subcategory using ajax request
  $(document).on('change', '#department_id' ,function(){
-
     let id=$(this).val();
 
     $.ajax({
@@ -165,8 +165,6 @@
             $('select[name=id]').empty();
             $.each(data, function(key, data){
                 $('select[name=id]').append('<option value="' +data.id+ '">' +data.name+ '</option>');
-
-
             });
         }
     });
@@ -189,13 +187,13 @@
         },
         success:function(data){
                 if(data >= 2) {
-                $('.status-show').text('Not Available');
+                $('.not-available').text('Not Available');
                 }
                 else {
-                $('.status-show').text('Available');
+                $('.available').text('Available');
                 $('select[name=fee]').empty();
                 $.each(data, function(key, data){
-                $('select[name=fee]').append('<option value="'+data.id+'">'+data.fee+'</option>');
+                    $('select[name=fee]').append('<option value="' +data.fee+ '">' +data.fee+ '</option>');
                 });
               }
 
@@ -218,9 +216,7 @@
       })
 
 
-</script>
 
-<script type="text/javascript">
 // insert appointment data
 $(document).ready(function() {
 
@@ -229,7 +225,7 @@ $(document).ready(function() {
     e.preventDefault();
     let url = $(this).attr('action');
     let request = $(this).serialize();
-
+    alert();
     $.ajax({
         url: url,
         type: 'post',
@@ -271,7 +267,6 @@ $('#add-session').submit(function(e) {
 
 
   </script>
-
 
 
 @endsection
