@@ -34,25 +34,26 @@
 
 
 
-@if(Session::has('msg'))
-<script >
-var type ="{{Session::get('alert-type','info')}}";
-switch(type){
-        case 'info':
-        toastr.info("{{Session::get('msg')}}");
-        break;
-        case 'success':
-        toastr.success("{{Session::get('msg')}}");
-        break;
-        case 'warning':
-        toastr.warning("{{Session::get('msg')}}");
-        break;
-        case 'error':
-        toastr.error("{{Session::get('msg')}}");
-        break;
-}
+    @if(Session::has('msg'))
+        <script >
+            var type ="{{Session::get('alert-type','info')}}";
+            switch(type){
+                    case 'info':
+                    toastr.info("{{Session::get('msg')}}");
+                    break;
+                    case 'success':
+                    toastr.success("{{Session::get('msg')}}");
+                    break;
+                    case 'warning':
+                    toastr.warning("{{Session::get('msg')}}");
+                    break;
+                    case 'error':
+                    toastr.error("{{Session::get('msg')}}");
+                    break;
+            }
+        </script>
+    @endif
 
-</script>
-@endif
+    @yield('scripts')
   </body>
 </html>

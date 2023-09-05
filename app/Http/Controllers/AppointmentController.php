@@ -22,15 +22,15 @@ class AppointmentController extends Controller
     public function store(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'patient_name'=>'required',
-            'patient_phone'=>'required',
-            'total_fee'=>'required',
+           'patient_name'=>'required',
+          'patient_phone'=>'required',
+              'total_fee'=>'required',
             'paid_amount'=>'required',
-            'total_fee'=> 'same:paid_amount',
+              'total_fee'=> 'same:paid_amount',
       ]);
 
       if ($validator->fails()) {
-         return response()->json('Your is data not match the requirments. Please check before submit');
+         return response()->json('Your data is not match the requirments. Please check before submit');
       }
 
         $cart = session()->get('cart');
@@ -71,8 +71,6 @@ class AppointmentController extends Controller
                  return response()->json('The Doctor is not available. Please try another...');
             }
             else{
-
-
         $doctorName = Doctor::where('id',$request->id)->first();
         $cart = session()->get('cart');
         if(!$cart){
@@ -88,9 +86,12 @@ class AppointmentController extends Controller
             ];
             session()->put('cart',  $cart);
             return response()->json('Appointment Successfully Added!');
-            }else{
+            }
 
-            $cart[] =[
+        if(isset($cart[$request->id])){
+            return response()->json('Already  Added!');
+        }
+            $cart[$request->id] =[
                 'appointment_no' => $request->appointment_no,
                 'appointment_date' => $request->appointment_date,
                 'department_id' => $request->department_id,
@@ -98,8 +99,9 @@ class AppointmentController extends Controller
                 'name'=>$doctorName->name,
                 'fee'=>$doctorName->fee,
             ];
-            }
+
         }
+
 
           session()->put('cart',  $cart);
           return response()->json('Appointment Successfully Added!');
